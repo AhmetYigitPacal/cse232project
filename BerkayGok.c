@@ -12,12 +12,12 @@ void save(char* filename){
                 return;
         } else{
                 int index=inuse_head;
-                if(index!=-1){
+                while(index!=-1){
                         fprintf(file,"%s\n",textbuffer[index].statement);
                         index=textbuffer[index].next;
                 }
                 fclose(file);
-                mvprintw(LINES-1,0,"File is created");
+                printw("File is created");
                 refresh();
                 napms(2000);
         }
@@ -27,6 +27,6 @@ void quit(){
         clear();
         printw("Exitting from text editor.");
         refresh();
-        napms(5000);
+        napms(1000);
         endwin();
 }

@@ -22,7 +22,7 @@ void undo();
 void redo();
 void display();
 void save(char *);
-
+void quit();
 
 
 //

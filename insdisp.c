@@ -39,8 +39,6 @@ void insert(int index, char* text) {
         if (next_node != -1)
             textbuffer[next_node].prev = new_node;
     }
-
-    push(&function_call_stack, INSERT, new_node, "");
 }
 
 
@@ -49,10 +47,10 @@ void display() {
     int idx = inuse_head;
     int line_no = 0;
     while (idx != -1) {
-        printw("%d: %s\n", line_no, textbuffer[idx].statement);
+        printw("%d: %s\n", idx, textbuffer[idx].statement);
         idx = textbuffer[idx].next;
         line_no++;
     }
     refresh();
-    getch(); // Gösterim için beklet
+    // getch(); // Gösterim için beklet
 }

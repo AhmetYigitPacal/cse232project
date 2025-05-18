@@ -49,20 +49,26 @@ Stack redo_stack = {NULL};
 void undo(){
 	//Implement the undo() function after completing the stack
 	//Think about how to pop-push from the stack
+    Node* topNode = peek(&function_call_stack);
+
 	if (isEmpty(&function_call_stack)){
 		printf("Error Stack UnderFlow: pop() from an empty stack");
 		return;
 	}
+
 	switch(peek(&function_call_stack)->operation){
 		case INSERT:
 			delete(function_call_stack.top->index);//Be carefull name conflict
+            push(&redo_stack, DELETE, topNode->index, textbuffer[topNode->index].statement);
 			break;
 		case DELETE:
-			insert(function_call_stack.top->index, function_call_stack.top->text_before);//I have to insert a new line for it. I actually have to get back the deleted line
+			// insert(function_call_stack.top->index, function_call_stack.top->text_before);//I have to insert a new line for it. I actually have to get back the deleted line
+            insert(function_call_stack.top->index, function_call_stack.top->text_before);
+            push(&redo_stack, INSERT, topNode->index, "");
 			break;
-		case EDIT:
-			strcpy(textbuffer[function_call_stack.top->index].statement, function_call_stack.top->text_before);
-			break;
+		// case EDIT:
+		// 	strcpy(textbuffer[function_call_stack.top->index].statement, function_call_stack.top->text_before);
+		// 	break;
 		default:
 			//Do nothing. No undo operation
 			break;

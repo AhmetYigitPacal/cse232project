@@ -5,7 +5,7 @@
 void delete(int index) {
     // Check if the index is valid
     if(index < 0 || index >= 25) {
-        printf("Invalid index\n");
+        printw("Invalid index\n");
         return;
     }
 
@@ -20,9 +20,13 @@ void delete(int index) {
     while(textbuffer[current].next != INVALID_INDEX) {
         // If the index is inuse
         if(textbuffer[current].next == index) {
-            // Remove line from inuse
-            textbuffer[current].next = textbuffer[index].next;
-            textbuffer[current].prev = current;
+		int next_index = textbuffer[index].next;
+
+        // Remove line from inuse
+        textbuffer[current].next = next_index;
+
+ 		if (next_index != -1)
+            textbuffer[next_index].prev = current;
 
             // Remove prev connection from deleted node
             textbuffer[index].prev = INVALID_INDEX;
@@ -32,7 +36,6 @@ void delete(int index) {
             textbuffer[index].next = free_head;
             free_head = index;
 
-            printf("Successfully deleted line\n");
             return;
         }
 
