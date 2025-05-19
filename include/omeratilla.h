@@ -1,8 +1,6 @@
 #ifndef OMERATILLA_H_
 #define OMERATILLA_H_
 
-
-
-void undo();
+bool undo();
 
 #endif  //OMERATILLA_H_

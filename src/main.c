@@ -48,23 +48,39 @@ int main(int argc, char** argv) {
         } else if(ch == '\n') {
             switch(buffer[0]) {
             case 'I':
-                if(insert(currentline, &buffer[2]))
-                    mvprintw(26, 0, "Inserted %s at line %d", &buffer[2], currentline);
                 push(&function_call_stack, INSERT, currentline, &buffer[2]);
+                if(insert(currentline, &buffer[2])) {
+                    mvprintw(26, 0, "Inserted %s at line %d", &buffer[2], currentline);
+                    clearStack(&redo_stack);
+                } else {
+                    mvprintw(26, 0, "Cannot insert at line %d", currentline);
+                    pop(&function_call_stack);
+                }
                 break;
 
             case 'D':
-                if(delete(currentline))
-                    mvprintw(26, 0, "Deleted line %d", currentline);
                 push(&function_call_stack, DELETE, currentline, textbuffer[currentline].statement);
+                if(delete(currentline)) {
+                    mvprintw(26, 0, "Deleted line %d", currentline);
+                    clearStack(&redo_stack);
+                } else {
+                    mvprintw(26, 0, "Cannot delete line %d", currentline);
+                    pop(&function_call_stack);
+                }
                 break;
 
             case 'U':
-                undo(); // Not working for now
+                if(undo())
+                    mvprintw(26, 0, "Undo successful");
+                else
+                    mvprintw(26, 0, "Nothing to undo");
                 break;
 
             case 'R':
-                redo(); // Not working for now
+                if(redo())
+                    mvprintw(26, 0, "Redo successful");
+                else
+                    mvprintw(26, 0, "Nothing to redo");
                 break;
 
             case 'S':
@@ -76,7 +92,8 @@ int main(int argc, char** argv) {
                 break;
 
             default: 
-                printw("Unknown command!");
+                mvprintw(26, 0, "Unknown command!");
+                move(currentline, 3);
                 break;
             }
             

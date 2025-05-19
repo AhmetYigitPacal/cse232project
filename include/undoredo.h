@@ -26,8 +26,9 @@ extern Stack function_call_stack;
 extern Stack redo_stack;
 
 void push(Stack* stack, action_type action, int index, const char* previous_text);
-void pop(struct Stack* stack);
-struct StackNode* peek(struct Stack* stack);
-int isEmpty(struct Stack* stack);
+void pop(Stack* stack);
+struct StackNode* peek(Stack* stack);
+int isEmpty(Stack* stack);
+void clearStack(Stack* stack);
 
 #endif  // UNDO_REDO_H_

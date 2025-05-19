@@ -1,6 +1,6 @@
 #ifndef ECEOYKU_H_
 #define ECEOYKU_H_
 
-void redo();
+bool redo();
 
 #endif // ECEOYKU_H_

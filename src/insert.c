@@ -4,7 +4,6 @@
 
 bool insert(int index, char* text) {
     if(free_head == INVALID_INDEX) {
-        printw("No space left in buffer.\n");
         return false;
     }
 
@@ -59,7 +58,6 @@ bool insert(int index, char* text) {
         current = textbuffer[current].next;
     }
 
-    // printw("The index is already in use");
 
     // Replace the text
     strncpy(textbuffer[index].statement, text, 39);

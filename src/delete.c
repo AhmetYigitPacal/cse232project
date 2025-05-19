@@ -2,7 +2,6 @@
 
 bool delete(int index) {
     if(inuse_head == INVALID_INDEX) {
-        printw("No line to delete\n");
         return false;
     }
 
@@ -55,6 +54,5 @@ bool delete(int index) {
         current = textbuffer[current].next;
     }
 
-    printw("The line %d is not in use", index);
     return false;
 }
