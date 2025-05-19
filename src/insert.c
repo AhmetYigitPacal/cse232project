@@ -59,6 +59,8 @@ bool insert(int index, char* text) {
     }
 
 
+    return false;
+
     // Replace the text
     strncpy(textbuffer[index].statement, text, 39);
     textbuffer[index].statement[39] = '\0';

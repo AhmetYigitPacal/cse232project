@@ -13,9 +13,14 @@ void display() {
         current = textbuffer[current].next;
     }
 
+    
     for(int i = 0; i < 25; i++) {
-        // printw("%d\n", inuse[i]);
+        attron(COLOR_PAIR(1));
+        
         printw("%2d ", i);
+
+        attroff(COLOR_PAIR(1));
+
         if(inuse[i]) {
             printw("%s", textbuffer[i].statement);
         }
@@ -23,4 +28,5 @@ void display() {
     }
 
     refresh();
+    
 }

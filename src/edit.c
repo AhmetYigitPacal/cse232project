@@ -7,8 +7,12 @@
 void edit(char *filename) {
     // ncurses başlat
     initscr();                // ncurses modunu başlat
-    cbreak();                 // Karakterleri hemen al
-    noecho();                 // Klavye girişlerini ekrana yazma
+    // cbreak();                 // Karakterleri hemen al
+    // noecho();                 // Klavye girişlerini ekrana yazma
+
+    start_color();
+    init_pair(1, COLOR_MAGENTA, COLOR_BLACK); // Index color
+    init_pair(2, COLOR_YELLOW, COLOR_BLACK); // Chosen Index color
 
     FILE *fp = fopen(filename, "r");  // Dosyayı okuma modunda açmayı dene
 

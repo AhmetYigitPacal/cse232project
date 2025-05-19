@@ -33,10 +33,13 @@ int main(int argc, char** argv) {
 
         display();
         mvprintw(25, 0, "Command: %s", buffer);
-		mvprintw(currentline, 0, "%2d %s", currentline, textbuffer[currentline].statement);
+        attron(COLOR_PAIR(2));
+        mvprintw(currentline, 0, "%2d ", currentline);
+        attroff(COLOR_PAIR(2));
+        mvprintw(currentline, 3, "%s", textbuffer[currentline].statement);
         move(currentline, 3);
-        
 		refresh();
+        
 		ch = getch();
 		
 		if(ch == KEY_UP){

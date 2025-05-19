@@ -16,9 +16,8 @@ void save(char* filename){
                 index=textbuffer[index].next;
         }
         fclose(file);
-        printw("File is created");
+        printw("Successfully saved to %s\n", filename);
         refresh();
-        napms(2000);
     }
 }
 
