@@ -1,21 +1,25 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -pedantic -std=c11 -I. 
+CFLAGS = -Wall -Wextra -pedantic -std=c11 -Iinclude
 LIBFLAGS = -lncurses
 
-SRC = $(wildcard *.c)
-OBJ = $(SRC:.c=.o)
+SRC_DIR = src
+OBJ_DIR = obj
+
+SRC = $(wildcard $(SRC_DIR)/*.c)
+OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 TARGET = main
 
 all: $(OBJ)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ) $(LIBFLAGS)
 
 run: all
-	./$(TARGET)
+	./$(TARGET) file.txt
 
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -rf $(OBJ_DIR) $(TARGET)
 
-%.o: %.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-.PHONY: all clean
+.PHONY: all clean run

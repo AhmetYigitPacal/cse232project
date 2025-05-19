@@ -2,7 +2,7 @@
 #include <stdio.h>              // Dosya işlemleri için gerekli (fopen, fgets, fclose)
 #include <string.h>             // String işlemleri için gerekli (strncpy, strcspn)
 #include <ncurses.h>           // ncurses kütüphanesi
-#include "cse232editor.h"       
+#include "texteditor.h"       
 
 void edit(char *filename) {
     // ncurses başlat
@@ -15,24 +15,19 @@ void edit(char *filename) {
     // Her çağrıda textbuffer'ı sıfırla (temiz buffer ve free list oluştur)
     for (int i = 0; i < 24; i++) {
         textbuffer[i].next = i + 1;   // Free list için sıradaki düğümü işaret et
-        textbuffer[i].prev = -1;      // Henüz kullanılmıyor, prev boş (-1)
+        textbuffer[i].prev = i - 1;      // Henüz kullanılmıyor, prev boş (-1)
     }
     textbuffer[24].next = -1;         // Son düğümün nexti -1 olmalı (end of list)
-    textbuffer[24].prev = -1;
+    textbuffer[24].prev = 23;
 
     free_head = 0;       // Free list'in başını 0. düğüme ayarla
     inuse_head = -1;     // Kullanılan aktif liste şu an boş
 
     // Eğer dosya yoksa (fp == NULL), yeni boş dosya oluştur ve fonksiyonu bitir
     if (!fp) {
-        // fp = fopen(filename, "w");    // Yazma modunda aç (yeni boş dosya)
-        // if (fp) fclose(fp);           // Dosyayı kapat
-        clear();
-        printw("The file doesn't exists!\n");
-        refresh();
-        napms(2000);
-        exit(EXIT_FAILURE);
-        return;                       
+        fp = fopen(filename, "w");    // Yazma modunda aç (yeni boş dosya)
+        if (fp) fclose(fp);           // Dosyayı kapat
+        fp = fopen(filename, "r");  // Okuma modunda tekrar aç      
     }
 
     char buffer[40];       // Geçici buffer: dosyadan okunan bir satırı tutar (max 39 karakter + '\0')

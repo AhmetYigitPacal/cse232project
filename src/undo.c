@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "cse232editor.h"
+#include "texteditor.h"
 
 //Push operation to add a function to the stack
 void push(Stack* stack, action_type action, int index, const char* previous_text){
-	Node* newTop = (Node*) malloc(sizeof(Node));
+	StackNode* newTop = (StackNode*) malloc(sizeof(StackNode));
 	if (newTop == NULL){
 		printf("Segmentation Fault: Memory could not allocated properly");
 		return;
@@ -25,14 +25,14 @@ void pop(Stack* stack){
 		return;
 	}
 	else{
-		Node* newTop = stack->top->next;
+		StackNode* newTop = stack->top->next;
 		free(stack->top);
 		stack->top = newTop;
 	}
 }
 
 //Peek operation to return the top of the stack(eventually the last operation done)
-Node* peek(Stack* stack){
+StackNode* peek(Stack* stack){
 	return stack->top;
 }
 
@@ -49,7 +49,7 @@ Stack redo_stack = {NULL};
 void undo(){
 	//Implement the undo() function after completing the stack
 	//Think about how to pop-push from the stack
-    Node* topNode = peek(&function_call_stack);
+    StackNode* topNode = peek(&function_call_stack);
 
 	if (isEmpty(&function_call_stack)){
 		printf("Error Stack UnderFlow: pop() from an empty stack");

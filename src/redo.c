@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <string.h>
-#include "cse232editor.h"
+#include "texteditor.h"
 
 extern struct Stack redo_stack;
 extern struct Stack function_call_stack;
 
 // extern void push(struct Stack* stack, int operation, int index, const char* previous_text);
 // extern void pop(struct Stack* stack);
-// extern struct Node* peek(struct Stack* stack);
+// extern struct StackNode* peek(struct Stack* stack);
 // extern int isEmpty(struct Stack* stack);
 
 // typedef enum {
@@ -16,15 +16,15 @@ extern struct Stack function_call_stack;
 //     EDIT
 // } action_type;
 
-// struct Node {
+// struct StackNode {
 //     action_type operation;
 //     int index;
 //     char text_before[40];
-//     struct Node* next;
+//     struct StackNode* next;
 // };
 
 // struct Stack {
-//     struct Node* top;
+//     struct StackNode* top;
 // };
 
 void redo() {
@@ -33,11 +33,11 @@ void redo() {
         return;
     }
 
-    struct Node* topNode = peek(&redo_stack);
+    struct StackNode* topNode = peek(&redo_stack);
 
     switch (topNode->operation) {
         case INSERT:
-            insert(function_call_stack.top->index, function_call_stack.top->text_before);
+            insert(topNode->index, topNode->text_before);
             push(&function_call_stack, INSERT, topNode->index, "");
             break;
 
