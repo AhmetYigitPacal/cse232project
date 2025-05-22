@@ -42,11 +42,8 @@ void edit(char *filename) {
         // fgets() sonunda '\n' karakteri bırakır bunu temizliyoruz alt satırda
         buffer[strcspn(buffer, "\n")] = '\0';
 
-        // Eğer free list boş ise yani buffer doluysa kullanıcıyı uyar ve işlemi kes
+        // Eğer free list boş ise yani buffer doluysa işlemi kes
         if (free_head == -1) {
-            printw("Text buffer is full.\n");
-            refresh();
-            getch(); // Kullanıcının bir tuşa basmasını bekle
             break;
         }
 

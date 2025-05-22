@@ -87,7 +87,10 @@ int main(int argc, char** argv) {
                 break;
 
             case 'S':
-                save(argv[1]);
+                if(save(argv[1]))
+                    mvprintw(26, 0, "Successfully saved to %s", argv[1]);
+                else 
+                    mvprintw(26, 0, "Failed to save to %s", argv[1]);
                 break;
 
             case 'Q':

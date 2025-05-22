@@ -1,24 +1,20 @@
 #include <ncurses.h>
 #include "texteditor.h"
 
-void save(char* filename){
-    clear();
+bool save(char* filename){
     FILE *file=fopen(filename,"w+");
-    if (file==NULL){
-        printw("File couldn't be created");
-        refresh();
-        napms(5000);
-        return;
-    } else{
-        int index=inuse_head;
-        while(index!=-1){
-                fprintf(file,"%s\n",textbuffer[index].statement);
-                index=textbuffer[index].next;
+    if (file == NULL){
+        return false;
+    } 
+
+    for (int i=0;i<25;i++){
+        if (textbuffer[i].statement[0]!='\0'){
+            fprintf(file, "%s\n",textbuffer[i].statement);
         }
-        fclose(file);
-        printw("Successfully saved to %s\n", filename);
-        refresh();
     }
+
+    fclose(file);
+    return true;
 }
 
 
