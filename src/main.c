@@ -18,11 +18,22 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    int displaymode = 0;
+    printf("Enable always-on display? [Y/n]: ");
+    char response;
+    scanf(" %c", &response);
+    if(response == 'Y' || response == 'y') {
+        displaymode = 1;
+    } else if(response != 'N' && response != 'n') {
+        printf("Invalid input! Defaulting to always-on display.\n");
+        displaymode = 1;
+    }
+
     edit(argv[1]);
 
     int ch;
-	int currentline = 0;
-	keypad(stdscr, TRUE);
+    int currentline = 0;
+    keypad(stdscr, TRUE);
 
     int i = 0;
     char buffer[40];
@@ -31,7 +42,7 @@ int main(int argc, char** argv) {
 	while(1){
 		clear();
 
-        display();
+        if(displaymode) display();
         mvprintw(25, 0, "Command: %s", buffer);
         attron(COLOR_PAIR(2));
         mvprintw(currentline, 0, "%2d ", currentline);
@@ -84,6 +95,10 @@ int main(int argc, char** argv) {
                     mvprintw(26, 0, "Redo successful");
                 else
                     mvprintw(26, 0, "Nothing to redo");
+                break;
+
+            case 'P':
+                if(!displaymode) display();
                 break;
 
             case 'S':

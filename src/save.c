@@ -7,10 +7,10 @@ bool save(char* filename){
         return false;
     } 
 
-    for (int i=0;i<25;i++){
-        if (textbuffer[i].statement[0]!='\0'){
-            fprintf(file, "%s\n",textbuffer[i].statement);
-        }
+    int cur = inuse_head;
+    while(cur != INVALID_INDEX) {
+        fprintf(file, "%s\n",textbuffer[cur].statement);
+        cur = textbuffer[cur].next;
     }
 
     fclose(file);
