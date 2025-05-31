@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
         attron(COLOR_PAIR(2));
         mvprintw(currentline, 0, "%2d ", currentline);
         attroff(COLOR_PAIR(2));
-        mvprintw(currentline, 3, "%s", textbuffer[currentline].statement);
+        // mvprintw(currentline, 3, "%s", textbuffer[currentline].statement);
         move(currentline, 3);
 		refresh();
         
